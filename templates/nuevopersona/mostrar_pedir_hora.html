@@ -1,0 +1,37 @@
+{% extends 'layouts/tienda.html' %}
+
+     
+{% block content %}
+<ul class="nav justify-content-center bg-light">
+    <li class="nav-item">
+      <a class="nav-link" href="/categorias">Categoria</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/listarproductos">Productos</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/mascotas">Mascotas</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/listarcontacto">Contacto</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/listarcarro">Carro</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/mostrar_hora">agendar</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/pedir_hora/listar/">Ahorasa  Pedidas</a>
+    </li>
+  </ul>
+
+  <h1>Detalles de la solicitud de hora</h1>
+  <p><strong>ID:</strong> {{ pedirhora.id }}</p>
+  <p><strong>Mascota:</strong> {{ pedirhora.mascota }}</p>
+  <p><strong>Hora:</strong> {{ pedirhora.hora }}</p>
+  <p><strong>Propietario:</strong> {{ pedirhora.propietario }}</p>
+  <!-- Agrega más detalles según sea necesario -->
+
+  <a href="{% url 'veterinaria:listar_pedir_hora' %}">Volver a la lista</a>
+{% endblock %}

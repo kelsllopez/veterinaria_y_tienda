@@ -1,0 +1,25 @@
+{% extends 'layouts/tienda.html' %} {% block content %}
+<div class="d-flex flex-colum py-4">
+    <div class="container">
+        <h3 class="   text-center my-3">AGREGAR SERVICIO</h3>
+
+        <div class="row">
+            <div class="col-sm-6 mx-auto   -">
+                {{ mensaje }} {% load crispy_forms_tags %}
+                <div class="card">
+                    <div class="card body p-2">
+                        <form action="" method="post">
+                            {% csrf_token %} {{ form | crispy }}
+                            <div class="d-flex justify-content-end">
+                                <a href="/listarservicios" class="btn btn-secondary mt-2 mx-2">Cancelar</a>
+                                <button type="submit" class="btn btn-danger mt-2 mx-2">Agregar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

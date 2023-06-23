@@ -1,0 +1,21 @@
+{% extends 'layouts/tienda.html' %}
+
+{% block content %}
+<br>
+
+<div class="card" style="width: 50rem;">
+    <div class="card-body">
+        <h4>Eliminar mascota: {{ mascota.nombre }}</h4>
+
+        <p>¿Estás seguro de que deseas eliminar esta mascota?</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+            <a href="{% url 'veterinaria:mis_mascotas' %}" class="btn btn-secondary">Cancelar</a>
+
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

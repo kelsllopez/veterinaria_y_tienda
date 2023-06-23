@@ -1,0 +1,14 @@
+{% extends 'layouts/tienda.html' %}{% load static %}
+
+{% block content %}
+  <h1>Eliminar Hora</h1>
+  <p>¿Estás seguro de que deseas eliminar la siguiente hora?</p>
+  <p>Servicio: {{ hora.servicio }}</p>
+  <p>Día: {{ hora.dia }}</p>
+  <p>Hora: {{ hora.hora }}</p>
+  <form method="POST" action="{% url 'veterinaria:eliminar_hora' hora.id %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a href="{% url 'veterinaria:mostrar_hora' %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+{% endblock %}

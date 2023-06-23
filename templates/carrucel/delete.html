@@ -1,0 +1,11 @@
+
+
+<!-- carrucel/delete.html -->
+<h3>Are you sure you want to delete "{{ carrucel.titulo }}"?</h3>
+
+<form method="POST" action="{% url 'veterinaria:carrucel_delete' carrucel.id %}">
+    {% csrf_token %}
+    <input type="submit" value="Delete">
+</form>
+
+<a href="{% url 'veterinaria:carrucel_list' %}">Cancel</a>

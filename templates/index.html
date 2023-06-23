@@ -1,0 +1,154 @@
+{% extends "layouts/tienda.html" %}
+{% load static %}
+{% block content %}
+<br>
+<div class="container-fluid text-dark">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicadores -->
+      <ol class="carousel-indicators">
+        {% for imagen in carrusel %}
+        <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+        {% endfor %}
+      </ol>
+      
+      <!-- Slides -->
+      <div class="carousel-inner">
+        {% for imagen in carrusel %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <img src="{{ imagen.imagen.url }}" alt="{{ imagen.titulo }}" width="100%" height="450px">
+          <div class="carousel-caption">
+            <h5 class="text-dark">{{ imagen.titulo }}</h5>
+            <p class="text-dark">{{ imagen.descripcion }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      
+      <!-- Controles -->
+      <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Anterior</span>
+      </a>
+      <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Siguiente</span>
+      </a>
+    </div>
+</div>
+<br>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      {% if categoria %}
+      <h3 class="text-center">Categoría</h3>
+      {% endif %}
+      <div class="row justify-content-center">
+        {% for cate in categoria %}
+        <div class="col-sm">
+          <div class="uwu d-flex flex-column justify-content-center align-items-center">
+            <a href="{% url 'veterinaria:productocategoria' cate.id %}">
+              <img src="{{ cate.imagen.url }}" class="rounded-circle" style="width: 100px; height: 100px;" />
+              <p class="text-center">{{ cate.nombre }}</p>
+            </a>
+          </div>
+        </div>
+        {% endfor %}    
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if productos_en_tendencia %}
+<div class="row">
+  <div class="col-md-12">
+    <header class=" py-2 rounded-bottom  animate__zoomIn" style="background-color: #72F2EB;">
+      <div class="text-center text-dark">
+        <h1 class="display-4 fw-bolder">Productos Ofertas</h1>
+      </div>
+    </header>
+  </div>
+</div>
+<div class="row">
+  {% for producto in productos_en_tendencia %}
+  <div class="col-md-3 p-3">
+    <div class="card h-100 movimiento">
+      <div class="card-body  h-100 d-flex flex-column">
+        <div class="imagen">
+          <img src="{{ producto.imagen.url }}" class="w-100" height="200px" />
+        </div>
+        <p>{{producto.precio}}</p>
+        <h6>{{ producto.nombre }}</h6>
+        <a class="btn btn-dark mt-auto text-white" href="{% url 'veterinaria:detalleproducto' producto.id %}">Ver detalle</a>
+      </div>
+    </div>
+  </div>
+  {% if forloop.counter|divisibleby:4 and not forloop.last %}
+    </div>
+    <div class="row">
+    {% endif %}
+  {% endfor %}
+</div>
+{% endif %}
+
+
+
+<hr>
+{% if productos_normales %}
+<div class="row">
+  {% for producto in productos_normales %}
+  <div class="col-md-3 p-3">
+    <div class="card movimiento">
+      <div class="card-body d-flex flex-column">
+        <div class="imagen">
+          <img src="{{ producto.imagen.url }}" class="w-100" height="200px" />
+        </div>
+        <p>{{producto.precio}}</p>
+        <h6>{{ producto.nombre }}</h6>
+        <a class="btn btn-dark mt-auto text-white" href="{% url 'veterinaria:detalleproducto' producto.id %}">Ver detalle</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+{% endif %}
+
+
+<div class="container-fluid">
+  <div class="row py-2">
+    {% if mostrar_mapa %}
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24515.293708449397!2d-73.23334194863038!3d-39.82018591703462!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9615ee89fc8d7279%3A0x3a111c4568b638e3!2sCl%C3%ADnica%20Veterinaria%20%22Happy%20Pet%22!5e0!3m2!1ses-419!2scl!4v1686704059751!5m2!1ses-419!2scl" width="100%" height="350px" style="border:4;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    {% endif %}
+  </div>
+</div>
+<!-- Mostrar visión -->
+{% if nosotros %}
+  <!-- Mostrar sección "Nosotros" solo si el objeto nosotros está presente en el contexto -->
+  <h1 class="text-center"></h1>
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col">
+      <div class="card ">
+        <div class="card-body">
+          <h5 class="card-title text-center">Mision</h5>
+          <p class="card-text">{{nosotros.mision}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+            <h5 class="card-title text-center">vision</h5>
+            <p class="card-text">{{nosotros.vision}}</p>
+        </div>
+      </div>
+    </div>
+    <br>
+    <hr>
+{% endif %}
+<br>
+
+  {% include 'paginator.html' %}
+</div>
+
+{% endblock %}

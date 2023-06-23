@@ -1,0 +1,47 @@
+{% extends 'layouts/tienda.html' %} 
+
+
+{% block content %}
+    <br>
+    <br>
+    <h5>Desea anadir un cliente</h5>
+    <hr>
+    <div class="card ">
+        <div class="card-body">
+            <form action="/solgas/crearusuario/" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input class="form-control" type="text" name="first-name" placeholder="Ingrese su nombre"required >
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Apellido</label>
+                        <input class="form-control" type="text" name="last-name" placeholder="Ingrese su apellido"required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 mb-3">
+                        <label class="form-label">Correo electrónico</label>
+                        <input class="form-control" type="email" name="email" placeholder="Ingrese su correo electrónico"required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Contraseña</label>
+                        <input class="form-control" type="password" name="password" placeholder="Ingrese la contraseña"required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Confirmación de la contraseña</label>
+                        <input class="form-control" type="password" name="re-password" placeholder="Reingrese la contraseña"required>
+                    </div>
+                </div>
+
+                <button class="btn btn-success" type="submit">Guardar</button>
+                <a class="btn btn-danger" href="/solgas/usuario/administrar/">Cancelar</a>
+            </form>
+        </div>
+    
+    </div>
+    <hr>
+{% endblock content %}

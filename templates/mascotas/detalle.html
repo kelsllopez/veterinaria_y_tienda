@@ -1,0 +1,30 @@
+{% extends 'layouts/tienda.html' %}
+
+{% block content %}
+<hr>
+<div class="py-1">
+  <div class="container">
+    <div class="row   ">
+      <div class="col-md-12">
+        <div class="card " style="width: 50rem;">
+          <div class="card-body">
+                  <h1 class="mb-0">    
+                    Detalles MASCOTA
+                  </h1>
+                  <hr>
+                  <p><b> ID :</b>   {{ mascota.id }}</p>
+                  <p><b> NOMBRE :</b>  {{ mascota.nombre }}</p>
+                  <p><b> tipo :</b>  {{ mascota.tipo }}</p>
+                  <p><b> sexo :</b>   {{ mascota.sexo }}</p>
+                  <p><b>raza : </b>  {{ mascota.raza }}</p>
+                  <p><b>MICROCHIP : </b>  {{ mascota.microchip }}</p>
+                  <p><b>PROPIETARIO : </b>  {{ mascota.propietario }}</p>
+                  <p class="   text-justify">
+                    <a href="/mascotas" class="btn btn-dark my-4 mx-auto">Atras</a>
+                  </p>
+          </div>
+        </div>
+    </div>
+  </div>  
+</div>
+{% endblock  %}

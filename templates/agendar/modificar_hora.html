@@ -1,0 +1,26 @@
+{% extends 'layouts/tienda.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container-fluid">
+    <h3 class="  -4s text-center my-3">MODIFICAR Hora</h3>
+    <div class="row">
+        <div class="col-sm-6 mx-auto   -">
+            {{ mensaje }}
+            <div class="card">
+                <div class="card-body p-2">
+                    <form method="POST" action="{% url 'veterinaria:modificar_hora' hora.id %}">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="d-flex justify-content-end">
+                            <a href="{% url 'veterinaria:mostrar_hora' %}" class="btn btn-secondary mt-2 mx-2">Cancelar</a>
+                            <button type="submit" class="btn btn-danger mt-2 mx-2">Modificar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

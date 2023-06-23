@@ -1,0 +1,282 @@
+{% extends 'layouts/tienda.html' %}
+
+{% block content %}
+<br><br>
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">inicio</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'veterinaria:productocategoria' producto.categoria.id %}">{{ producto.categoria.nombre }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ producto.nombre }}</li>
+    </ol>
+  </nav>
+</div> 
+<div class="py-1">
+  <div class="container">
+    <div class="row   ">
+      <div class="col-md-12">
+        <div class="card shadow producto_data">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4 my-3 pic-box">
+                
+                {% if producto.tendencia %}
+                <div class="badge bg-danger text-white">tendencia</div>
+                {% endif %}
+                <div class="zoom">
+                  <img src="{{ producto.imagen.url }}" class="w-100" alt="{{ producto }}">
+                </div>              
+              </div>
+              <div class="col-md-8">
+                <h1 class="mb-0">
+                  {{ producto.nombre }}
+                </h1>
+                <hr>
+                
+                <p>Precio actual: CLP {{ producto.precio | floatformat:3  }}</p>
+                <hr>
+                <div class="mb-0">
+                  {% if producto.stock %}
+                  <p class="badge bg-warning">En stock: {{ producto.stock }}</p>
+                  {% else %}
+                  <p class="badge bg-danger">Agotado</p>
+                  {% endif %}
+                </div>
+                <div>
+                  
+                  <input type="hidden" value="{{ producto.id }}" id="pid">
+                  <div class="card-footer border-top-0 bg-transparent">
+                    {% if user.is_authenticated%}
+                      {% if producto.stock > 0 %}
+                      <input type="hidden" value="{{producto.id}}" id="pid">
+                      <p>
+                        <div class="input-group" style="width:150px">
+                          <button class="input-group-text bg-dark text-light" id="btnMinus" ><i class="bi bi-dash"></i></button>
+                            <input type="text" name="qty" id="txtQty" value="1" class="form-control text-center">
+                          <button class="input-group-text bg-dark text-light " id="btnPlus"><i class="bi bi-plus-lg"></i></button>
+                        </div>
+                      </p>
+                        <button class="btn btn-primary" id="btnCart"><i class="bi-cart-fill"></i></button>
+                        {% else %}
+                        <button class="btn btn-secondary" >No esta en el stock</button>
+                        {% endif %}
+                        <button class="btn btn-danger" id="btnFav"><i class="bi bi-suit-heart-fill "></i></button>
+                    {% endif %}
+                    
+                </div>
+              </div>
+                  {% if not user.is_authenticated %}
+                  <div class="alert alert-warning mt-3" role="alert">
+                    Para agregar artículos al carrito o a favoritos, por favor <a href="{% url 'veterinaria:registrar' %}">regístrate</a>.
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="col-md-card-header">
+              Descripcion
+            </div>
+            <div class="card-body">
+              <p class="card-text" style="text-align: justify;">{{ producto.descripcion }}</p>
+            </div>
+          </div>
+        </div>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+<section style="background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);">
+  <div class="container px-3 px-lg-5 mt-3   ">
+    <h2 class="fw-bolder mb-4 text-center">Productos relacionados</h2>
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+      <!-- Sección de productos relacionados -->
+      {% for otroProducto in productosRelacionados %}
+      <div class="col mb-5">
+        <div class="card movimiento border-0 h-100" id="movimiento">
+          {% if otroProducto.imagen %}
+          <!-- Imagen del producto -->
+          <img class="card-img-top" src="{{ otroProducto.imagen.url }}" width="350px" height="200px"/>
+          {% else %}
+          <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="producto" />
+          {% endif %}
+          <div class="card-body p-4">
+            <div class="text-center">
+              <!-- Nombre del producto -->
+              <h5 class="fw-bolder">{{ otroProducto.nombre }}</h5>
+              <!-- Precio del producto -->
+              <p>En tendencia CLP: {{ otroProducto.precio | stringformat:'f' }}</p>
+              <!-- Etiqueta de tendencia -->
+              {% if otroProducto.tendencia %}
+              <label class="badge bg-info text-white">tendencia</label>
+              {% endif %}
+              <!-- Enlace para ver detalles -->
+              <a href="{% url 'veterinaria:detalleproducto' id=otroProducto.id %}">Ver detalles</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<hr>
+<!-- Mostrar comentarios existentes -->
+<div class="row">
+  <div class="col-md-9">
+    {% if user.is_authenticated %}
+    <form method="post" action="{% url 'veterinaria:detalleproducto' producto.id %}">
+      {% csrf_token %}
+      <div>
+        <label>¿Cómo califica este producto?</label>
+        <br>
+        <div class="rate">
+          <input type="radio" name="rating" id="rating10" value="5" required /><label for="rating10" title="EXCELENTE"></label>
+          <input type="radio" name="rating" id="rating9" value="4.5" required /><label for="rating9" title="4.5" class="half"></label>
+          <input type="radio" name="rating" id="rating8" value="4" required /><label for="rating8" title="MUY BUENO"></label>
+          <input type="radio" name="rating" id="rating7" value="3.5" required /><label for="rating7" title="3.5" class="half"></label>
+          <input type="radio" name="rating" id="rating6" value="3" required /><label for="rating6" title="BUENO"></label>
+          <input type="radio" name="rating" id="rating5" value="2.5" required /><label for="rating5" title="2.5" class="half"></label>
+          <input type="radio" name="rating" id="rating4" value="2" required /><label for="rating4" title="MALO"></label>
+          <input type="radio" name="rating" id="rating3" value="1.5" required /><label for="rating3" title="1.5" class="half"></label>
+          <input type="radio" name="rating" id="rating2" value="1" required /><label for="rating2" title="MUY MALO"></label>
+          <input type="radio" name="rating" id="rating1" value="0.5" required /><label for="rating1" title="0.5" class="half"></label>
+        </div>
+        <br>
+        <div class="form-field">
+          <label for="nombre">Nombre:</label>
+          <input type="text" class="input-field" name="nombre" id="nombre">
+        </div>
+        <div class="form-field">
+          <label for="comentario">Comentario:</label>
+          <textarea name="comentario" rows="4" class="textarea-field" id="comentario"></textarea>
+        </div>        
+        <br>
+        <button type="submit" class="btn btn-primary">Enviar comentario</button>
+      </div>
+    </form>
+  {% else %}
+    <p>Debes estar registrado para poder dejar comentarios <a href="/registrar">regístrese</a>.</p>
+    <p>Comentarios</p>
+  {% endif %}
+<br>
+    {% for comentario in comentarios %}
+  <article class="box mb-3">
+    <div class="icontext w-100">
+      <div class="text">
+        <span class="date text-muted float-md-right">{{ comentario.fecha }}</span>
+        <h6 class="mb-1">
+
+            User : {{ comentario.nombre }}
+        </h6>
+        <div class="rating-star">
+          <span>
+            valoracion :
+            <i class="fa fa-star{% if comentario.rating == 0.5 %}-half-o{% elif comentario.rating < 1 %}-o{% endif %}" aria-hidden="true"></i>
+            <i class="fa fa-star{% if comentario.rating == 1.5 %}-half-o{% elif comentario.rating < 2 %}-o{% endif %}" aria-hidden="true"></i>
+            <i class="fa fa-star{% if comentario.rating == 2.5 %}-half-o{% elif comentario.rating < 3 %}-o{% endif %}" aria-hidden="true"></i>
+            <i class="fa fa-star{% if comentario.rating == 3.5 %}-half-o{% elif comentario.rating < 4 %}-o{% endif %}" aria-hidden="true"></i>
+            <i class="fa fa-star{% if comentario.rating == 4.5 %}-half-o{% elif comentario.rating < 5 %}-o{% endif %}" aria-hidden="true"></i>
+          </span>
+        </div>
+      </div>
+    </div> <!-- icontext.// -->
+    <div class="mt-3">
+      <p>Comentario : {{ comentario.comentario }}</p>
+    </div>
+  </article>
+{% endfor %}
+
+  </div> <!-- col.// -->
+</div> <!-- row.// -->
+
+
+
+<hr>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    const btnPlus = document.getElementById("btnPlus");
+    const btnMinus = document.getElementById("btnMinus");
+    const txtQty = document.getElementById("txtQty");
+    const pid = document.getElementById("pid");
+    const btnCart = document.getElementById("btnCart");
+    const btnFav = document.getElementById("btnFav");
+
+    btnPlus.addEventListener("click", function() {
+      let qty = parseInt(txtQty.value, 10);
+      qty = isNaN(qty) ? 0 : qty;
+      let stock = parseInt("{{ producto.stock }}", 10); // Obtener el valor del stock desde el contexto de Django
+
+      if (qty < stock) {
+        qty++;
+        txtQty.value = qty;
+      }
+    });
+
+    btnMinus.addEventListener("click", function() {
+      let qty = parseInt(txtQty.value, 10);
+      qty = isNaN(qty) ? 0 : qty;
+
+      if (qty > 1) {
+        qty--;
+        txtQty.value = qty;
+      }
+    });
+
+    btnCart.addEventListener("click", function() {
+      let qty = parseInt(txtQty.value, 10);
+      qty = isNaN(qty) ? 0 : qty;
+
+      if (qty > 0) {
+        let postObj = {
+          'product_qty': qty,
+          'pid': pid.value
+        }
+
+        fetch("/addtocart", {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': '{{ csrf_token }}',
+          },
+          body: JSON.stringify(postObj)
+        }).then(response => {
+          return response.json();
+        }).then(data => {
+          alert(data['status']);
+        });
+      } else {
+        alert("Please Enter The Quantity");
+      }
+    });
+
+    btnFav.addEventListener("click", function() {
+      let postObj = {
+        'pid': pid.value
+      }
+
+      fetch("/fav", {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Accept': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRFToken': '{{ csrf_token }}',
+        },
+        body: JSON.stringify(postObj)
+      }).then(response => {
+        return response.json();
+      }).then(data => {
+        alert(data['status']);
+      });
+    });
+  });
+</script>
+
+{% endblock content %}

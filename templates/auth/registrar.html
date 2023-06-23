@@ -1,0 +1,21 @@
+{% extends 'layouts/tienda.html' %} {% block content %}
+<div class="d-flex flex-colum py-4">
+    <div class="container">
+        <div class="col-lg-6 col-md-8 col-sm-6 mx-auto bg-info text-white   ">
+            <div class="card-header">
+                <h3 class="text-center">Registro de Usuarios</h3>
+                {% load crispy_forms_tags %}
+                <div class="card-body py-2">
+                    <form method="post" action="">
+                        {% csrf_token %} {{ form | crispy }}
+
+                        <div class="text-center pb-2">
+                            <button class="btn btn-danger" type='submit'>Registrarse</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

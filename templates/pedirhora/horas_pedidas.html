@@ -1,0 +1,25 @@
+{% extends 'layouts/tienda.html' %}
+
+{% block content %}
+<br>
+
+<div class="card" style="width: 50rem;">
+    <div class="card-body">
+        {% for hora_pedida in horas_pedidas %}        
+        <div class="card my-3">
+            <div class="card-body">
+                <h5 class="card-title">Para la Mascota  ({{ hora_pedida.mascota }})</h5>
+                <p class="card-text">Mascota: {{ hora_pedida.mascota }}</p>
+                <p class="card-text">Hora: {{ hora_pedida.hora }}</p>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'veterinaria:solgas_usuario_detalle' hora_pedida.id %}" class="btn btn-secondary mt-2 mx-2" button>ATRAS</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}
+
+

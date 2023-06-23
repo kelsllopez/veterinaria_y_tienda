@@ -1,0 +1,57 @@
+{% extends 'layouts/tienda.html' %}
+
+{% block content %}
+<br><br>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">        <a href="/">inicio  </a></li>
+    <li class="breadcrumb-item active" aria-current="page">Productos Favoritos</li>
+  </ol>
+</nav>
+
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-lg-10 mx-auto ">
+
+              <div class="card">
+                  <div class="card-header text-center">
+                      <strong>Productos Favoritos</strong>
+                  </div>
+                  <div class="card-element table-responsive">
+                      <table class="table table-hover table-condensed">
+                          <thead class=" table-dark text-center">
+                              <tr>
+                                  <th>#</th>
+                                  <th>Image</th>
+                                  <th>Product nombre</th>
+                                  <th>Unit</th>
+                                  <th>Fecha</th>
+                                  <th>Remove</th>
+                              </tr>
+                          </thead>
+                          <tbody class="table-success text-center  py-4">
+                            {% for item in fav %}
+                            <tr>
+                              <td>{{item.producto.id}}</td>
+                               <td><img src="{{item.producto.producto_imagen.url}}" height="75px" alt="{{item.producto.nombre}}"></td>
+                               <td>{{item.producto.nombre}}</td>
+                               <td>{{item.producto.precio_venta | stringformat:'d'}}</td>
+                               <td>{{item.producto.created_at}}</td>
+                               <td><a href="{% url 'veterinaria:remove_fav' item.id %}"  onclick="return confirm('Are you sure? to Remove')"  class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Remove</a></td>
+                             </tr>
+                             {% endfor %}
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-lg-2 my-4 mx-auto ">
+              <div class="card card-footer align-item-center ">
+                  <a href="/ " class="btn btn-dark my-2 mx-auto ">Volver a veterinaria</a>
+              </div>
+          </div>
+
+      </div>
+  </div>
+{% endblock content %}

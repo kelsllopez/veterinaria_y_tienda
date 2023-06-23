@@ -1,0 +1,102 @@
+{% extends "layouts/tienda.html" %}
+{% load static %}
+{% block content %}
+
+<div class=" d-flex flex-colum py-2">
+    <div class="container">
+        <h3 class="animate__animated animate__bounceInDown animate__delay-0.3s text-center py-4">{{ nosotros.titulo }}</h3>
+
+        <div class="row py-auto">
+            <div class="col-lg-6">
+                <p class="animate__animated animate__backInRight animate__delay-0.3s text-justify">
+                    {{ nosotros.historia }}                </p>
+                
+            </div>
+
+            <div class="col-lg-6 animate__animated animate__bounceInUp animate__delay-0.4s ">
+                <img src="{{ nosotros.foto_doctora.url }}" class="card-img-top" alt="..."  height="200px" alt="team" >
+            </div>    
+</div>
+
+
+
+
+<!-- SErvicios -->
+<h1 class="text-center"> SERVICIOS </h1>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col p-2">
+      <div class="card h-100">
+        <img src="{{ nosotros.imagen1.url }}" class="card-img-top" alt="..."  whith="100px" height="300px">
+        <div class="card-body">
+          <h5 class="card-title">{{ nosotros.servicio1 }}</h5>
+          <p class="card-text">{{ nosotros.descripcion1 }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col p-2">
+      <div class="card h-100">
+        <img src="{{ nosotros.imagen2.url }}" class="card-img-top" alt="..."  whith="100px" height="300px">
+        <div class="card-body">
+          <h5 class="card-title">{{ nosotros.servicio2 }}</h5>
+          <p class="card-text">{{ nosotros.descripcion2 }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col p-2">
+      <div class="card h-100">
+        <img src="{{ nosotros.imagen3.url }}" class="card-img-top" alt="..."  whith="100px" height="300px">
+        <div class="card-body">
+          <h5 class="card-title">{{ nosotros.servicio3 }}</h5>
+          <p class="card-text">{{ nosotros.descripcion3 }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col p-2">
+        <div class="card h-100">
+          <img src="{{ nosotros.imagen4.url }}" class="card-img-top" alt="..."  whith="100px" height="300px">
+          <div class="card-body">
+            <h5 class="card-title">{{ nosotros.servicio4 }}</h5>
+            <p class="card-text">{{ nosotros.descripcion4 }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col p-2">
+        <div class="card h-100">
+          <img src="{{ nosotros.imagen5.url }}" class="card-img-top" alt="..."  whith="100px" height="300px">
+          <div class="card-body">
+            <h5 class="card-title">{{ nosotros.servicio5 }}</h5>
+            <p class="card-text">{{ nosotros.descripcion5 }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col p-2">
+        <div class="card h-100">
+          <img src="{{ nosotros.imagen6.url }}" class="card-img-top" alt="..."  whith="100px" height="300px">
+          <div class="card-body">
+            <h5 class="card-title">{{ nosotros.servicio6 }}</h5>
+            <p class="card-text">{{ nosotros.descripcion6 }}</p>
+          </div>
+        </div>
+      </div>
+  </div>
+  <br>
+  <h1 class="text-center "> Mision y vision </h1>
+  <div class="row row-cols-1 row-cols-md-2 g-4" >
+    <div class="col p-2">
+      <div class="card"style="background-color: #C7FFED;">
+        <div class="card-body">
+          <h5 class="card-title text-center" style="">Mision</h5>
+          <p class="card-text">{{nosotros.mision}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col p-2">
+      <div class="card"style="background-color: #C7FFED;">
+        <div class="card-body">
+            <h5 class="card-title text-center">vision</h5>
+            <p class="card-text">{{nosotros.vision}}</p>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

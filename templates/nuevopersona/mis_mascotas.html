@@ -1,0 +1,38 @@
+{% extends 'layouts/tienda.html' %}
+
+{% block content %}
+<br>
+
+<div class="card" style="width: 50rem;">
+    <div class="card-body">
+        <h4>Mis mascotas ({{ mascotas.count }})</h4>
+
+        {% for mascota in mascotas %}
+        <div class="card my-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ mascota.nombre }}</h5>
+                <p class="card-text">Especie: {{ mascota.tipo }}</p>
+                <p class="card-text">Sexo: {{ mascota.sexo }}</p>
+                <p class="card-text">Raza: {{ mascota.raza }}</p>
+                <p class="card-text">Microchip: {{ mascota.microchip }}</p>
+                <!-- Agrega aquí más detalles de la mascota -->
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'veterinaria:eliminar_mascota' mascota.id %}" class="btn btn-danger  mx-auto">Eliminar</a>
+                <a href="{% url 'veterinaria:modificar_mascota' mascota.id %}" class="btn btn-primary  mx-auto">Modificar</a>
+                <a href="{% url 'veterinaria:solgas_usuario_detalle' id=mascota.propietario.id %}" class="btn btn-dark  mx-auto">Atrás</a>
+
+            </div>
+        </div>
+        {% empty %}
+        <p>No se han registrado mascotas.</p>
+        <div class="row">
+            <div class="col-3 text-right">
+                <a href="{% url 'veterinaria:solgas_usuario_detalle' id=user.id %}" class="btn btn-dark my-4 mx-auto">Atrás</a>
+            </div>
+        </div> 
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

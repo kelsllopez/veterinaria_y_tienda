@@ -1,0 +1,45 @@
+{% extends 'layouts/tienda.html' %}
+
+{% block content %}
+<ul class="nav justify-content-center bg-light">
+  <li class="nav-item">
+    <a class="nav-link" href="/categorias">Categoria</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/listarproductos">Productos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/mascotas">Mascotas</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/listarcontacto">Contacto</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/listarcarro">Carro</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/mostrar_hora">agendar</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/pedir_hora/listar/">Ahorasa  Pedidas</a>
+  </li>
+</ul>
+  
+  <h1>Listado de Pedir Hora</h1>
+  
+  {% if pedirhoras %}
+    <ul>
+      {% for pedirhora in pedirhoras %}
+        <li>
+          <p>Mascota: {{ pedirhora.mascota }}</p>
+          <p>Hora: {{ pedirhora.hora }}</p>
+          <p>Propietario: {{ pedirhora.propietario }}</p>
+          <a href="{% url 'veterinaria:mostrar_pedir_hora' pedirhora.id %}">Ver Detalles</a>
+          <a href="{% url 'veterinaria:eliminar_pedir_hora' pedirhora.id %}">Eliminar</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No hay Pedir Horas registradas.</p>
+  {% endif %}
+{% endblock %}

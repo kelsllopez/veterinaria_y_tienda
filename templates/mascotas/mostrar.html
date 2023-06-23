@@ -1,0 +1,97 @@
+{% extends 'layouts/tienda.html' %}
+{% load static %} 
+
+{% block content %}
+
+<br>
+<div class="container">
+  <ul class="nav justify-content-center bg-light">
+  <li class="nav-item">
+    <a class="nav-link" href="/solgas/usuario/administrar">Administrador</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/categorias">Categoria</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/listarproductos">Productos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/mascotas">Mascotas</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/listarcontacto">Contacto</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/listarcarro">Carro</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/listarfavorito">Favoritos</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="/mostrar_hora">agendar</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/pedirhora">Horas Pedidas</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/carrucel">carrucel</a>
+  </li> 
+</ul>
+</div>
+  
+<br>
+<div class="d-flex flex-column">
+  <div class="container text-center">
+    <div class="row justify-content-center">
+      <div class="col-lg-12   ">
+        <div class="card">
+          <div class="card-header text-center font-weight-bold">
+            {{ title }}
+          </div>
+          <div class="card-body table-responsive align-items-center">
+            <div class="d-flex justify-content-end mb-2">
+
+              <a href="/crear_mascota_admin" class="btn btn-success btn-sm" type="submit">
+                <i class="bi bi-plus-circle-fill"></i> Añadir mascota
+              </a>
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Tipo</th>
+                  <th>Sexo</th>
+                  <th>Raza</th>
+                  <th>Tiene Chip</th>
+                  <th>Foto</th>
+                  <th>Propietario</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for mascota in mascotas %}
+                <tr>
+                  <td>{{ mascota.nombre }}</td>
+                  <td>{{ mascota.tipo }}</td>
+                  <td>{{ mascota.sexo }}</td>
+                  <td>{{ mascota.raza }}</td>
+                  <td>{{ mascota.microchip }}</td>
+                  <td><img src="{{ mascota.foto.url }}" width="50" height="50"></td>
+                  <td>{{ mascota.propietario }}</td>
+                  <td>
+                    <a href="{% url 'veterinaria:detalles_mascota' mascota.id %}" class="btn btn-info">Detalles</a>
+                    <a href="{% url 'veterinaria:adminmodificar_mascota' mascota.id %}" class="btn btn-primary">Modificar</a>
+                    <a href="{% url 'veterinaria:eliminar_mascota' mascota.id %}" class="btn btn-danger">Eliminar</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock  %}
+

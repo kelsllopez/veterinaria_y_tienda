@@ -1,0 +1,84 @@
+{% extends 'layouts/tienda.html' %} 
+{% block content %}
+<div class="d-flex flex-colum py-3">
+    <div class="container-fluid">
+        <form action="{% url 'veterinaria:procesar_compra' %}" method="POST">
+            {% csrf_token %}
+            <h3 class="   text-center my-3">PROCESO DE COMPRA</h3>
+            <div class="row">
+                <div class="col-6 mx-auto   ">
+                    <div class="card p-4">
+                        <h5 class="text-center">
+                            <strong>Información del comprador</strong>
+                        </h5>
+                        <div class="form-group">
+                            <label for="usuario" class="form-label">Usuario</label>
+                            <input id="usuario" class="form-control mb-2 mr-sm-2" type="text" name="usuario" placeholder="{{ user.username }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Correo</label>
+                            <input id="email" class="form-control mb-2 mr-sm-2" type="email" name="email" placeholder="{{ user.email }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input id="nombre" class="form-control mb-2 mr-sm-2" type="text" name="nombre" placeholder="{{ user.first_name }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido" class="form-label">Apellido</label>
+                            <input id="apellido" class="form-control mb-2 mr-sm-2" type="text" name="apellido" placeholder="{{ user.last_name }}" readonly>
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-6 mx-auto   - " style="min-height:400px;">
+                        <div class="card">
+                            <h5 class="mx-auto"><strong>Resumen de la Compra</strong></h5>
+                            {% if cartitems  %}
+                            <table class="table text-center table-hover">
+                                <thead  class="table table-dark ">
+                                    <tr>
+                                        <th>id</th>
+                                        <th>Producto</th>
+                                        <th>Nombre</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio</th>
+                                        <th>Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table  table-striped">
+                                    {% for item in cartitems %}
+                                    <tr>
+                                        <td>{{item.product.id}}</td>
+                                        <td><img  src="{{ item.product.producto_imagen.url }}" alt="producto" style="width:90px"/> </td>
+                                        <td>{{item.product.nombre}}</td>
+                                        <td>{{item.product_qty}}</td>
+                                        <td>{{item.product.precio | stringformat:'d'}}</td>
+                                        <td><a href="{% url 'veterinaria:remove_cart' item.id %}"  onclick="return confirm('Desea eliminar el Producto')"  class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>Eliminar</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <p><strong>Subtotal: {{ cart_total_price }}</strong></p>
+                            <!-- Mostrar IVA -->
+                            <p><strong>IVA: {{ cart_iva }}</strong></p>
+                            <!-- Mostrar precio neto -->
+                            <p><strong>Precio Neto: {{ cart_total_neto }}</strong></p>
+                            <input type="hidden" value="Natureza" name="payment_mode">
+                            <div class="mt-2">
+                                <a class="btn btn-success w-100" href="{% url 'veterinaria:cart' %}"> Volver al carrito </a>
+                            </div>
+                            <div class="mt-2">
+                                <button type="submit" class="btn btn-info w-100"> HAPPY PET | Realizar pedido</button>          
+                            </div>
+                            {% else %}
+                            <div class="alert alert-danger" role="alert">
+                                Tu carro está vacío :C
+                            </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "layouts/tienda.html" %}
+{% load static %}
+{% block content %}
+
+<hr>
+<div class="py-1">
+  <div class="container">
+    <div class="row   ">
+      <div class="col-md-12">
+        <div class="card " style="width: 50rem;">
+          <div class="card-body">
+                  <h1 class="mb-0">    
+                    Pedir Hora  DETALLE
+                  </h1>
+                  <hr>
+                  <p>Mascota: {{ pedirhora.mascota }}</p>
+                  <p>Hora: {{ pedirhora.hora }}</p>
+                  <p class="   text-justify">
+                    <a href="{% url 'veterinaria:pedir_hora_list' %}"  class="btn btn-secondary mt-2 mx-2" button >ATRAS</a>
+                  </p>
+          </div>
+        </div>
+    </div>
+  </div>  
+</div>
+
+{% endblock %}
