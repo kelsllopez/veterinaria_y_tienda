@@ -4,14 +4,12 @@
 <br>
 <div class="container-fluid text-dark">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
-      <!-- Indicadores -->
       <ol class="carousel-indicators">
         {% for imagen in carrusel %}
         <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
         {% endfor %}
       </ol>
       
-      <!-- Slides -->
       <div class="carousel-inner">
         {% for imagen in carrusel %}
         <div class="carousel-item {% if forloop.first %}active{% endif %}">
@@ -24,7 +22,6 @@
         {% endfor %}
       </div>
       
-      <!-- Controles -->
       <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Anterior</span>
@@ -122,9 +119,7 @@
     {% endif %}
   </div>
 </div>
-<!-- Mostrar visión -->
 {% if nosotros %}
-  <!-- Mostrar sección "Nosotros" solo si el objeto nosotros está presente en el contexto -->
   <h1 class="text-center"></h1>
   <div class="row row-cols-1 row-cols-md-2 g-4">
     <div class="col">
