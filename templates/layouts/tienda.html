@@ -85,11 +85,9 @@
         transform: scale(1.3);
       }
 
-        /* Estilos para el check de las estrellas */
         .star-rating input[type="radio"]:checked + label {
           color: orange;
         }
-        /* Hide Radio button */
         .rate > input {
           display: none;
         }
@@ -103,7 +101,6 @@
           float: right;
         }
       
-        /* Showing the stars */
         .rate > label:before {
           display: inline-block;
           font-size: 1.1rem;
@@ -114,20 +111,17 @@
           cursor: pointer;
         }
       
-        /* Half star */
         .rate .half:before {
           content: "\f089";
           position: absolute;
           padding-right: 0;
         }
       
-        /* Click and hover */
         input:checked ~ label,
         label:hover ~ label {
           color: #ffb503;
         }
       
-        /* Hover highlight */
         input:checked + label:hover,
         input:checked ~ label:hover,
         input:checked ~ label:hover ~ label,
@@ -137,9 +131,9 @@
       
         .rating-star i {
           color: #ffb503 !important;
-          font-size: 20px; /* Tamaño personalizado para las estrellas */
-          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Agrega sombra a las estrellas */
-          animation: pulse 1s infinite; /* Agrega animación de pulso a las estrellas */
+          font-size: 20px;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+          animation: pulse 1s infinite;
         }
       
         @keyframes pulse {
@@ -237,7 +231,6 @@
                           Perdir Hora
                       </a>
                   </li>
-                    <!-- Si está autenticado mostrar -->
                     <div class="d-flex">
                       <a href="{% url 'veterinaria:cart' %}" class="btn">
                           <i class="bi-cart-fill"></i>
@@ -265,7 +258,6 @@
                         </div>
                     </li>
                     {% else %}
-                    <!-- Si no está autenticado mostrar -->
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/login">
                             <i class="bi bi-person-fill"style='color:#e11212'></i>
@@ -290,10 +282,7 @@
     </section>
 
     <footer class="container-fluid text-white text-center text-lg-start mt-auto" style="background-color: #038C73;">
-      <!-- Grid container -->
-          <!--Grid row-->
           <div class="row mt-1">
-            <!--Grid column-->
             <div class="col-lg-4 col-md-4">
               <h5 class="text-uppercase">Enlaces rápidos</h5>
             <ul class="list-unstyled my-auto mx-auto text-center" >
@@ -308,9 +297,7 @@
               </li>
             </ul>
           </div>
-            <!--Grid column-->
     
-            <!--Grid column-->
             <div class="col-lg-4 col-md-4">
                 <h5 class="text-uppercase">Contactos</h5>
               <ul class="list-unstyled my-auto mx-auto text-center" >
@@ -325,9 +312,7 @@
                 </li>
               </ul>
             </div>
-            <!--Grid column-->
     
-            <!--Grid column-->
             <div class="col-lg-4 col-md-4">
               <h5 class="text-uppercase">Horas Disponibles </h5>
     
@@ -344,17 +329,12 @@
                 </tbody>
               </table>
             </div>
-            <!--Grid column-->
           </div>
-          <!--Grid row-->
-        <!-- Grid container -->
     
-        <!-- Copyright -->
         <div class="container-fluid text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
           © 2023 Kels:
           <a class="text-white" href="https://www.instagram.com/kels.sepulveda_/">Kels.sepulveda_</a>
         </div>
-        <!-- Copyright -->
 </footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-y1+kVgvcX/7EQb6an3kK9b9gKbT+rGkE4s+j+c5BtLOb5X8ivn4aZLXCedCzidL5k12K96JzMFxje4k7DjxBRQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -364,7 +344,6 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-    <!-- MESSAGES-->
     {% if messages %} {% for message in messages %}
     <script>
         Swal.fire({
@@ -373,7 +352,6 @@
         })
     </script>
     {% endfor %} {% endif %}
-    <!-- END MESSAGES -->
 </body>
 
 </html>
