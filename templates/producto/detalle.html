@@ -92,27 +92,21 @@
   <div class="container px-3 px-lg-5 mt-3   ">
     <h2 class="fw-bolder mb-4 text-center">Productos relacionados</h2>
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-      <!-- Sección de productos relacionados -->
       {% for otroProducto in productosRelacionados %}
       <div class="col mb-5">
         <div class="card movimiento border-0 h-100" id="movimiento">
           {% if otroProducto.imagen %}
-          <!-- Imagen del producto -->
           <img class="card-img-top" src="{{ otroProducto.imagen.url }}" width="350px" height="200px"/>
           {% else %}
           <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="producto" />
           {% endif %}
           <div class="card-body p-4">
             <div class="text-center">
-              <!-- Nombre del producto -->
               <h5 class="fw-bolder">{{ otroProducto.nombre }}</h5>
-              <!-- Precio del producto -->
               <p>En tendencia CLP: {{ otroProducto.precio | stringformat:'f' }}</p>
-              <!-- Etiqueta de tendencia -->
               {% if otroProducto.tendencia %}
               <label class="badge bg-info text-white">tendencia</label>
               {% endif %}
-              <!-- Enlace para ver detalles -->
               <a href="{% url 'veterinaria:detalleproducto' id=otroProducto.id %}">Ver detalles</a>
             </div>
           </div>
@@ -124,7 +118,6 @@
 </section>
 
 <hr>
-<!-- Mostrar comentarios existentes -->
 <div class="row">
   <div class="col-md-9">
     {% if user.is_authenticated %}
@@ -183,15 +176,15 @@
           </span>
         </div>
       </div>
-    </div> <!-- icontext.// -->
+    </div>
     <div class="mt-3">
       <p>Comentario : {{ comentario.comentario }}</p>
     </div>
   </article>
 {% endfor %}
 
-  </div> <!-- col.// -->
-</div> <!-- row.// -->
+  </div>
+</div>
 
 
 
@@ -209,7 +202,7 @@
     btnPlus.addEventListener("click", function() {
       let qty = parseInt(txtQty.value, 10);
       qty = isNaN(qty) ? 0 : qty;
-      let stock = parseInt("{{ producto.stock }}", 10); // Obtener el valor del stock desde el contexto de Django
+      let stock = parseInt("{{ producto.stock }}", 10); 
 
       if (qty < stock) {
         qty++;
